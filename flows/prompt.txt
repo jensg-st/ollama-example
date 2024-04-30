@@ -1,0 +1,19 @@
+There are multiple automations available which can be started with a JSON file. The following is the list of automations and example JSON files.
+
+Example for creating a password:
+{
+   "action": "create-password"
+   "server": "10.0.0.1",
+   "user": "test"
+}
+
+Example for creating a virtual machine:
+{
+   "action": "create-vm",
+   "cpu": 1,
+   "memory": "16GB",
+   "hdd": 200MB
+}
+
+
+Generate valid JSON from the examples for the request:
