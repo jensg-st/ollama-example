@@ -1,0 +1,16 @@
+direktiv_api: workflow/v1
+functions:
+- id: mistral
+  type: knative-namespace
+  service: ai-svc
+states:
+- id: getter 
+  type: action
+  action:
+    function: mistral
+    files:
+    - key: /flows/prompt.txt
+      scope: file
+    input: 
+      prompt: create a user jens on server direktiv.io.test
+      tuning: flows/prompt.txt

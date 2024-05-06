@@ -1,0 +1,19 @@
+direktiv_api: workflow/v1
+functions:
+- id: ai
+  workflow: ai.yaml
+  type: subflow
+states:
+- id: ai
+  type: action
+  async: true
+  action:
+    function: ai
+    input: 
+      url: jq(.response_url[0])
+      text: jq(.text[0])
+  transition: result
+- id: result
+  type: noop
+  transform: 
+     text: Thank you for your request. I will send through the results later.

@@ -3,6 +3,7 @@ package pkg
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/ollama/ollama/api"
 )
@@ -19,6 +20,9 @@ func NewRequestHandler(model string) *RequestHandler {
 		Model:  model,
 		Stream: &stream,
 		Format: "json",
+		KeepAlive: &api.Duration{
+			Duration: time.Hour * 12,
+		},
 	}
 
 	return &RequestHandler{

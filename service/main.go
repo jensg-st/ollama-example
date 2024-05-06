@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/go-chi/chi/v5"
@@ -27,6 +28,7 @@ const (
 	direktivActionIDHeader     = "Direktiv-ActionID"
 	direktivErrorCodeHeader    = "Direktiv-ErrorCode"
 	direktivErrorMessageHeader = "Direktiv-ErrorMessage"
+	direktivTempDir            = "Direktiv-TempDir"
 
 	errCode = "io.direktiv.ollama.error"
 	model   = "mistral"
@@ -53,7 +55,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	var t []byte
 	if req.Tuning != "" {
-		t, err = os.ReadFile(req.Tuning)
+
+		dir := r.Header.Get(direktivTempDir)
+		f := filepath.Join(dir, req.Tuning)
+
+		log(aid, fmt.Sprintf("opening file %s", f))
+
+		t, err = os.ReadFile(f)
 		if err != nil {
 			respondWithErr(w, errCode, err.Error())
 			return

@@ -1,0 +1,16 @@
+direktiv_api: endpoint/v1
+path: /slack
+methods:
+  - POST
+plugins:
+  target:
+    type: target-flow
+    configuration:
+      flow: /flows/ingress.yaml
+      async: false
+  inbound: []
+  outbound: []
+  auth:
+    - type: slack-webhook-auth
+      configuration:
+        secret: 1cc05390e23525fea0c40767cfb3cbe2
