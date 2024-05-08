@@ -18,8 +18,10 @@ RUN --mount=type=cache,target=/root/.cache/go-build cd src && \
 FROM ubuntu:latest
 
 RUN apt-get update && apt-get install -y supervisor curl
-RUN curl -L https://ollama.com/download/ollama-linux-amd64 -o /usr/bin/ollama
-RUN chmod +x /usr/bin/ollama
+# RUN curl -L https://ollama.com/download/ollama-linux-amd64 -o /usr/bin/ollama
+# RUN chmod +x /usr/bin/ollama
+
+RUN curl -fsSL https://ollama.com/install.sh | sh
 
 COPY --from=downloader /root/.ollama /root/.ollama
 COPY --from=builder  /service /service
